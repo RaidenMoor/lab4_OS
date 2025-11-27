@@ -27,11 +27,11 @@ DWORD WINAPI ConsumerThread(LPVOID lpParam) {
         HANDLE handles[2] = { data->hDataReadyEvent, data->hStopEvent };
         DWORD result = WaitForMultipleObjects(2, handles, FALSE, INFINITE);
 
-        if (result == WAIT_OBJECT_0 + 1) { // Остановка
+        if (result == WAIT_OBJECT_0 + 1) { 
             break;
         }
 
-        if (result == WAIT_OBJECT_0) { // Данные готовы
+        if (result == WAIT_OBJECT_0) { 
            
             EnterCriticalSection(&data->cs);
 
@@ -45,9 +45,9 @@ DWORD WINAPI ConsumerThread(LPVOID lpParam) {
                 swprintf(filename, 256, L"threaded_stack_%d.bin", GetCurrentThreadId());
                 data->stack->saveToFile(filename);
 
-                cout << "[Consumer] Added value: " << data->pendingValue
-                    << ", Stack size: " << data->stack->getSize()
-                    << ", Saved to: " << filename << endl;
+                cout << "[Consumer] Добавлено значение: " << data->pendingValue
+                    << ", Размер стека: " << data->stack->getSize()
+                    << ", Сохранено в: " << filename << endl;
             }
 
             LeaveCriticalSection(&data->cs);
@@ -68,7 +68,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        DisableThreadLibraryCalls(hModule); // Оптимизация
+        DisableThreadLibraryCalls(hModule); 
         break;
     case DLL_PROCESS_DETACH:
     case DLL_THREAD_ATTACH:
@@ -316,9 +316,8 @@ void Stack<T>::clear() {
 
 template <typename T>
 bool Stack<T>::saveToFile(const wchar_t* filename) const {
-    // Используем CreateFileW для Unicode строк
     HANDLE hFile = CreateFileW(
-        filename,           // LPCWSTR - wide string
+        filename,           
         GENERIC_WRITE,
         0,
         NULL,

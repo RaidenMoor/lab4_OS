@@ -66,7 +66,7 @@ void testExplicitLinking() {
     cout << "Многопоточный стек создан" << endl;
     cout << "Поток-потребитель активен: " << (isThreadedStackRunning(threadedStack) ? "Да" : "Нет") << endl;
 
-    cout << "\nДобавляем элементы через многопоточный интерфейс:" << endl;
+    cout << "\nДобавление элементы через многопоточный интерфейс:" << endl;
     for (int i = 1; i <= 5; i++) {
         cout << "[Main] Отправка значения: " << i * 10 << endl;
         threadedPush(threadedStack, i * 10);
@@ -79,7 +79,7 @@ void testExplicitLinking() {
         cout << "Финальное состояние сохранено в 'final_threaded_stack.bin'" << endl;
     }
 
-    cout << "\nОстанавливаем многопоточный стек..." << endl;
+    cout << "\nОстановка многопоточного стека" << endl;
     stopThreadedStack(threadedStack);
 
     int waitCount = 0;
